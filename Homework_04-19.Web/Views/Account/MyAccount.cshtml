@@ -1,31 +1,25 @@
 ﻿@using Homework_04_19.Web.Models;
 @using Homework_04_19.Data;
-@model HomePageviewModel;
+@model MyAccountViewModel;
 
 <div b-gyvb0mk0dj class="container" style="margin-top:80px;">
     <main b-gyvb0mk0dj role="main" class="pb-3">
 
-        @foreach (Ad a in Model.Ads)
+        @foreach (Ad a in Model.MyAds)
         {
             <div class="row">
                 <div class="col-md-6 offset-md-3">
                     <div class="bg-light p-4 rounded shadow mb-3">
-                        <h5>Listed by @a.Name</h5>
                         <h5>Listed on @a.DateCreated.ToLongDateString()</h5>
                         <h5>Phone Number: @a.Phone</h5>
                         <h3>Details:</h3>
                         <p>@a.Description</p>
-
-                        @if (User.Identity.IsAuthenticated && a.UserId == Model.Repo.GetUserByEmail(User.Identity.Name).Id)
-                        {
-                            <form method="post" action="/home/delete">
-                                <input type="hidden" name="id" value="@a.Id" />
-                                <button class="btn btn-danger mt-2">DELETE</button>
-                            </form>
-                        }
+                        <form method="post" action="/home/deletead">
+                            <input type="hidden" name="id" value="@a.Id" />
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
                     </div>
                 </div>
-
             </div>
         }
 
