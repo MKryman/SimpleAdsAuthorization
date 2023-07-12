@@ -31,12 +31,21 @@ namespace Homework_04_19.Web.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult NewAd(Ad ad, string email)
         {
             var repo = new UserRepository(_connectionString);
             ad.UserId = repo.GetUserByEmail(email).Id;
             repo.InsertAd(ad);
+            return RedirectToAction("index");
+        }
+
+        [Authorize]
+        public IActionResult DeleteAd(int id)
+        {
+            var repo = new UserRepository(_connectionString);
+            repo.DeleteAd(id);
             return RedirectToAction("index");
         }
     }

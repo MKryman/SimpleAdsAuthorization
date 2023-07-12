@@ -98,6 +98,17 @@ namespace Homework_04_19.Data
             command.ExecuteNonQuery();
         }
 
+        public void DeleteAd(int id)
+        {
+            var connection = new SqlConnection(_conStr);
+            var command = connection.CreateCommand();
+            command.CommandText = "DELETE FROM Ads WHERE Id = @id";
+            command.Parameters.AddWithValue("@id", id);
+            connection.Open();
+
+            command.ExecuteNonQuery();
+        }
+
         public User Login(string email, string password)
         {
             var user = GetUserByEmail(email);
